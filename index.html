@@ -2,38 +2,33 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Connexion - Collaborateurs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajouter un utilisateur</title>
 </head>
 <body>
-  <h1>Connexion</h1>
-  <form id="login-form">
-    <label for="email">Email :</label><br />
-    <input type="email" id="email" name="email" required /><br />
-    <label for="password">Mot de passe :</label><br />
-    <input type="password" id="password" name="password" required /><br />
-    <button type="submit">Se connecter</button>
+  <h1>Ajouter un utilisateur</h1>
+  <form action="/ajouter-utilisateur" method="POST">
+    <label for="nom">Nom :</label>
+    <input type="text" id="nom" name="nom" required><br><br>
+
+    <label for="prenom">Prénom :</label>
+    <input type="text" id="prenom" name="prenom" required><br><br>
+
+    <label for="email">Email :</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="motdepasse">Mot de passe :</label>
+    <input type="password" id="motdepasse" name="motdepasse" required><br><br>
+
+    <label for="role">Rôle :</label>
+    <select id="role" name="role" required>
+      <option value="">--Sélectionnez--</option>
+      <option value="admin">Admin</option>
+      <option value="manager">Manager</option>
+      <option value="salarié">Salarié</option>
+    </select><br><br>
+
+    <button type="submit">Ajouter</button>
   </form>
-
-  <script>
-    const form = document.getElementById('login-form');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = form.email.value;
-      const password = form.password.value;
-
-      const response = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-      if (data.success) {
-        alert('Connexion réussie !');
-      } else {
-        alert('Échec de la connexion');
-      }
-    });
-  </script>
 </body>
 </html>

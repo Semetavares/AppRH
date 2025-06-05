@@ -1,20 +1,18 @@
-import { NowRequest, NowResponse } from '@vercel/node';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
+import { createServerlessHandler } from '@vercel/node';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Route POST pour ajouter un utilisateur
-app.post('/ajouter-utilisateur', (req, res) => {
+// ✅ ROUTE POST : Ajouter un utilisateur
+app.post('/ajouter-utilisateur', (req: Request, res: Response) => {
   const { nom, prenom, email, motdepasse, role } = req.body;
   console.log('Nouvel utilisateur reçu :', { nom, prenom, email, motdepasse, role });
   res.status(200).send('Utilisateur ajouté (simulé)');
 });
 
-// Adaptateur pour Vercel
-export default (req: NowRequest, res: NowResponse) => {
-  app(req, res);
-};
+// ✅ Adaptateur pour Vercel (nécessaire pour le déploiement)
+export default createServerlessHandler(app);
